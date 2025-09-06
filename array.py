@@ -62,5 +62,32 @@ print("Original:", my_array)
 sorted_array = insertion_sort(my_array)
 print("Sorted:", sorted_array)
 
+#-------------------------------------Quick Sort --------------------------------------------------#
+def partition(array, low, high):
+    p= array[low]
+    i = low +1
+    j = high
+    while True:
+        while i <=j and array[i] <= p:
+            i+=1
+        while i <= j and array[j]>= p:
+            j-=1
+        if i <= j:
+            array[i],array[j] = array[j] , array[i]
+        else:
+            break
+    array[low],array[j]= array[j],array[low]
+    return j
+def quicksort(array, low=0, high=None):
+    if high is None:
+        high = len(array) - 1
 
+    if low < high:
+        pivot_index = partition(array, low, high)
+        quicksort(array, low, pivot_index-1)
+        quicksort(array, pivot_index+1, high)
+
+my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+quicksort(my_array)
+print("Sorted array:", my_array)
 
