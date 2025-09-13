@@ -38,56 +38,74 @@
 # print(my_array)
 
 #-----------------------------------insertion sort-----------------------------------------------------#
-def insertion_sort(arr):
-    n = len(arr)
-    for i in range(1,n):
-        insert_index= i
-        current_value= arr.pop(i)
-        for j in range(i-1,-1,-1):
-            if arr[j]> current_value:
-                insert_index= j
-        arr.insert(insert_index,current_value)
-    return arr
-    # for i in range(1,n):
-    #     key = arr[i]
-    #     j = i-1
-    #     while j>=0 and arr[j] > key:
-    #         arr[j+1]=arr[j]
-    #         j= j-1
-    #     arr[j+1]=key
-    # return arr
-
-my_array = [9, 5, 1, 4, 3]
-print("Original:", my_array)
-sorted_array = insertion_sort(my_array)
-print("Sorted:", sorted_array)
+# def insertion_sort(arr):
+#     n = len(arr)
+#     for i in range(1,n):
+#         insert_index= i
+#         current_value= arr.pop(i)
+#         for j in range(i-1,-1,-1):
+#             if arr[j]> current_value:
+#                 insert_index= j
+#         arr.insert(insert_index,current_value)
+#     return arr
+#     # for i in range(1,n):
+#     #     key = arr[i]
+#     #     j = i-1
+#     #     while j>=0 and arr[j] > key:
+#     #         arr[j+1]=arr[j]
+#     #         j= j-1
+#     #     arr[j+1]=key
+#     # return arr
+#
+# my_array = [9, 5, 1, 4, 3]
+# print("Original:", my_array)
+# sorted_array = insertion_sort(my_array)
+# print("Sorted:", sorted_array)
 
 #-------------------------------------Quick Sort --------------------------------------------------#
-def partition(array, low, high):
-    p= array[low]
-    i = low +1
-    j = high
-    while True:
-        while i <=j and array[i] <= p:
-            i+=1
-        while i <= j and array[j]>= p:
-            j-=1
-        if i <= j:
-            array[i],array[j] = array[j] , array[i]
-        else:
-            break
-    array[low],array[j]= array[j],array[low]
-    return j
-def quicksort(array, low=0, high=None):
-    if high is None:
-        high = len(array) - 1
+# def partition(array, low, high):
+#     p= array[low]
+#     i = low +1
+#     j = high
+#     while True:
+#         while i <=j and array[i] <= p:
+#             i+=1
+#         while i <= j and array[j]>= p:
+#             j-=1
+#         if i <= j:
+#             array[i],array[j] = array[j] , array[i]
+#         else:
+#             break
+#     array[low],array[j]= array[j],array[low]
+#     return j
+# def quicksort(array, low=0, high=None):
+#     if high is None:
+#         high = len(array) - 1
+#
+#     if low < high:
+#         pivot_index = partition(array, low, high)
+#         quicksort(array, low, pivot_index-1)
+#         quicksort(array, pivot_index+1, high)
+#
+# my_array = [64, 34, 25, 12, 22, 11, 90, 5]
+# quicksort(my_array)
+# print("Sorted array:", my_array)
 
-    if low < high:
-        pivot_index = partition(array, low, high)
-        quicksort(array, low, pivot_index-1)
-        quicksort(array, pivot_index+1, high)
+#---------------------------------------------------counting sort----------------------------------------#
+def counting_sort(arr):
+    max_val= max(arr)
+    count= [0] * (max_val +1)
 
-my_array = [64, 34, 25, 12, 22, 11, 90, 5]
-quicksort(my_array)
-print("Sorted array:", my_array)
+    while len(arr) > 0:
+        num = arr.pop(0)
+        count[num]+=1
 
+    for i in range(len(count)):
+        while count[i]>0:
+            arr.append(i)
+            count[i]-=1
+    return arr
+
+unsortedArr = [4, 2, 2, 6, 3, 3, 1, 6, 5, 2, 3]
+sortedArr = counting_sort(unsortedArr)
+print("Sorted array:", sortedArr)
