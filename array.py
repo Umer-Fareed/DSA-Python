@@ -8,6 +8,8 @@
 #         minvalue= i
 #
 # print(minvalue)
+from heapq import merge
+
 
 #-----------------------------------bubble sort--------------------------------------------------#
 
@@ -92,20 +94,55 @@
 # print("Sorted array:", my_array)
 
 #---------------------------------------------------counting sort----------------------------------------#
-def counting_sort(arr):
-    max_val= max(arr)
-    count= [0] * (max_val +1)
+# def counting_sort(arr):
+#     max_val= max(arr)
+#     count= [0] * (max_val +1)
+#
+#     while len(arr) > 0:
+#         num = arr.pop(0)
+#         count[num]+=1
+#
+#     for i in range(len(count)):
+#         while count[i]>0:
+#             arr.append(i)
+#             count[i]-=1
+#     return arr
+#
+# unsortedArr = [4, 2, 2, 6, 3, 3, 1, 6, 5, 2, 3]
+# sortedArr = counting_sort(unsortedArr)
+# print("Sorted array:", sortedArr)
 
-    while len(arr) > 0:
-        num = arr.pop(0)
-        count[num]+=1
+#---------------------------------------------Merge sort---------------------------------#
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
 
-    for i in range(len(count)):
-        while count[i]>0:
-            arr.append(i)
-            count[i]-=1
-    return arr
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    rightHalf = arr[mid:]
 
-unsortedArr = [4, 2, 2, 6, 3, 3, 1, 6, 5, 2, 3]
-sortedArr = counting_sort(unsortedArr)
+    sortedLeft = merge_sort(left_half)
+    sortedRight = merge_sort(rightHalf)
+
+    return merge(sortedLeft, sortedRight)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+
+    return result
+
+unsortedArr = [3, 7, 6, -10, 15, 23.5, 55, -13]
+sortedArr = merge_sort(unsortedArr)
 print("Sorted array:", sortedArr)
