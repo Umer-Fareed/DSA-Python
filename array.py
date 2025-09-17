@@ -113,36 +113,79 @@ from heapq import merge
 # print("Sorted array:", sortedArr)
 
 #---------------------------------------------Merge sort---------------------------------#
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
+# def merge_sort(arr):
+#     if len(arr) <= 1:
+#         return arr
+#
+#     mid = len(arr) // 2
+#     left_half = arr[:mid]
+#     rightHalf = arr[mid:]
+#
+#     sortedLeft = merge_sort(left_half)
+#     sortedRight = merge_sort(rightHalf)
+#
+#     return merge(sortedLeft, sortedRight)
+#
+# def merge(left, right):
+#     result = []
+#     i = j = 0
+#
+#     while i < len(left) and j < len(right):
+#         if left[i] < right[j]:
+#             result.append(left[i])
+#             i += 1
+#         else:
+#             result.append(right[j])
+#             j += 1
+#
+#     result.extend(left[i:])
+#     result.extend(right[j:])
+#
+#     return result
+#
+# unsortedArr = [3, 7, 6, -10, 15, 23.5, 55, -13]
+# sortedArr = merge_sort(unsortedArr)
+# print("Sorted array:", sortedArr)
+#---------------------------------------------linear search-----------------------------------#
+# def linear_search(arr, val):
+#     for i in range(len(arr)):
+#         if arr[i] == val:
+#             return i
+#     return -1
+#
+# array= [1,2,34,2,3,4,6,4,5,6,4]
+# value= 34
+# answer= linear_search(array,value)
+# if answer == -1:
+#     print(f"the index of {value} not find")
+# else:
+#     print(f"the index of {value} is {answer}")
 
-    mid = len(arr) // 2
-    left_half = arr[:mid]
-    rightHalf = arr[mid:]
+#------------------------------------------Binary search--------------------------------#
+def binarySearch(arr, targetVal):
+    left = 0
+    right = len(arr) - 1
 
-    sortedLeft = merge_sort(left_half)
-    sortedRight = merge_sort(rightHalf)
+    while left <= right:
+        mid = (left + right) // 2
 
-    return merge(sortedLeft, sortedRight)
+        if arr[mid] == targetVal:
+            return mid
 
-def merge(left, right):
-    result = []
-    i = j = 0
-
-    while i < len(left) and j < len(right):
-        if left[i] < right[j]:
-            result.append(left[i])
-            i += 1
+        if arr[mid] < targetVal:
+            left = mid + 1
         else:
-            result.append(right[j])
-            j += 1
+            right = mid - 1
 
-    result.extend(left[i:])
-    result.extend(right[j:])
+    return -1
 
-    return result
 
-unsortedArr = [3, 7, 6, -10, 15, 23.5, 55, -13]
-sortedArr = merge_sort(unsortedArr)
-print("Sorted array:", sortedArr)
+myArray = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+myTarget = 15
+
+result = binarySearch(myArray, myTarget)
+
+if result != -1:
+    print("Value", myTarget, "found at index", result)
+else:
+    print("Target not found in array.")
